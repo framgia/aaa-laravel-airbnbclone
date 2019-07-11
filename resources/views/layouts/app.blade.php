@@ -17,6 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
+    @toastr_css
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
@@ -27,5 +28,8 @@
             @yield('content')
         </main>
     </div>
+    @jquery
+    @toastr_js
+    @toastr_render
 </body>
 </html>
