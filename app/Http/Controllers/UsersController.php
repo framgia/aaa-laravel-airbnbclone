@@ -23,7 +23,7 @@ class UsersController extends Controller
     public function update()
     {
         $rules = [
-            'name' => ['required', 'string', 'max:1'],
+            'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(auth()->user())],
             'password' => 'nullable|string|min:6|confirmed',
         ];
