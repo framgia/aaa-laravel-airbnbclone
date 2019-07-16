@@ -1,0 +1,71 @@
+// Body
+$body-bg:  #f8f8f8;
+
+// Typography
+$font-family-sans-serif: "Varela Round", "Helvetica Nue", sans-serif;
+
+// Colors
+$brand-color: #ff5a5f;
+$fb-color:  #3b5998;
+$link-color: #00a699;
+
+// Initial
+a {
+  color: $link-color;
+}
+
+.btn {
+  border-radius: 5px;
+  color: #ffffff;
+  transition: 0.3s;
+  font-weight: bold;
+  padding: 9px 27px;
+
+  &.default {
+    border-color: #c4c4c4;
+    background-color: #ffffff ;
+    color: #484848;
+  }
+
+  &.btn-normal {
+    border: 1px solid $brand-color;
+    background-color: $brand-color;
+
+     &:hover {
+      outline: none;
+      border-color: darken($brand-color, 10%);
+      background-color: darken($brand-color, 10%);
+    }
+  }
+
+  &.btn-form {
+    border: 1px solid $link-color;
+    background-color: $link-color;
+
+     &:hover {
+      outline: none;
+      border-color: darken($link-color, 10%);
+      background-color: darken($link-color, 10%);
+    }
+  }
+
+  &.btn-facebook {
+    border: 1px solid $fb-color;
+    background-color: $fb-color;
+
+     &:hover {
+      outline: none;
+      border-color: darken($fb-color, 10%);
+      background-color: darken($fb-color, 10%);
+    }
+  }
+
+  &:hover, &:focus {
+    color: #ffffff;
+  }
+}
+
+.btn-small {
+  padding: 5px 15px;
+  margin-top: 15px;
+}
