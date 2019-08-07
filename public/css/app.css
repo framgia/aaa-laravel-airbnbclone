@@ -16665,6 +16665,15 @@ ul.sidebar li .fa {
   color: #00a699;
 }
 
+.text-secondary {
+  color: #00a699 !important;
+}
+
+.text-line-through {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
 .photos .card {
   position: relative;
 }
