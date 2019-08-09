@@ -7,8 +7,6 @@ use Illuminate\Support\Facades\Storage;
 
 class Room extends Model
 {
-    protected $guarded = [];
-
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -17,6 +15,11 @@ class Room extends Model
     public function photos()
     {
         return $this->hasMany(Photo::class);
+    }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
     }
 
     public function isReady()
