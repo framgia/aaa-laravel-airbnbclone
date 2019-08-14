@@ -196,7 +196,7 @@
                 <div class="card-body">
                     <form action="{{ route('rooms.reservations.store', $room) }}" method="POST" autocomplete="off">
                         @csrf
-        
+
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="start_date">Check In</label>
@@ -214,8 +214,9 @@
                             </div>
                         </div>
 
+                        <h4 class="invalid-feedback d-block text-center"><span id="message"></span></h4>
                         {{-- Preview --}}
-                        <div id="preview" class="d-none">
+                        <div id="preview" style="display: none">
                             <table>
                                 <tbody>
                                     <tr>
@@ -236,7 +237,7 @@
 
                         <br/>
                         <div class="form-group">
-                            <button class="btn btn-normal btn-block" type="submit">Book Now</button>
+                            <button id="btn_book" class="btn btn-normal btn-block" type="submit" disabled>Book Now</button>
                         </div>
                     </form>
                 </div>
@@ -250,7 +251,39 @@
     function checkDate(date) {
         ymd = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
         return [$.inArray(ymd, unavailableDates) == -1];
-    }
+    };
+
+    function checkPreview() {
+        var start_date = $.datepicker.formatDate('yy-mm-dd', $('#start_date').datepicker('getDate'));
+        var end_date = $.datepicker.formatDate('yy-mm-dd', $('#end_date').datepicker('getDate'));
+        var nights = (new Date(end_date) - new Date(start_date))/1000/60/60/24 + 1;
+
+        if (end_date) {
+            $.ajax({
+                type: "GET",
+                url: "{{ route('rooms.preview', $room) }}",
+                data: {
+                    'start_date': start_date,
+                    'end_date': end_date
+                },
+                success: function(data) {
+                    if (data.conflict) {
+                        $('#message').text('These dates are not available');
+                        $('#preview').hide();
+                        $('#btn_book').attr('disabled', true);
+                    } else {
+                        $('#message').text('');
+                        $('#preview').show();
+                        $('#btn_book').attr('disabled', false);
+
+                        var total = nights * {{ $room->price }};
+                        $('#reservation_nights').text(nights);
+                        $('#reservation_total').text(total);
+                    }
+                }
+            });
+        }
+    };
 
     $(function() {
         unavailableDates = [];
@@ -273,6 +306,8 @@
                     onSelect: function(selected) {
                         $('#end_date').datepicker('option', 'minDate', selected);
                         $('#end_date').attr('disabled', false);
+
+                        checkPreview();
                     }
                 });
 
@@ -283,6 +318,8 @@
                     beforeShowDay: checkDate,
                     onSelect: function(selected) {
                         $('#start_date').datepicker('option', 'maxDate', selected);
+
+                        checkPreview();
                     }
                 });
             }
