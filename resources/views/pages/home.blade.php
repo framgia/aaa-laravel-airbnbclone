@@ -8,7 +8,7 @@
         </div>
     </div>
 
-    <form action="" autocomplete="off">
+    <form action="{{ route('search') }}" autocomplete="off">
         <div class="row">
             <div class="col-md-6 input-group-lg">
                 <input class="form-control" name="address" type="text" placeholder="Where are you going?">
