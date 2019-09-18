@@ -23,13 +23,13 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>Min Price:</label>
-                                <input type="text" class="form-control" name="min_price" value="{{ old('min_price') }}">
+                                <input type="text" class="form-control" id="min_price" name="min_price" value="{{ old('min_price') }}">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>Max Price:</label>
-                                <input type="text" class="form-control" name="max_price" value="{{ old('max_price') }}">
+                                <input type="text" class="form-control" id="max_price" name="max_price" value="{{ old('max_price') }}">
                             </div>
                         </div>
                     </div>
@@ -155,7 +155,6 @@
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.googlemaps.api_key') }}"></script>
 <script>
-
     function initialize() {
         var location = {lat: 10.315699, lng: 123.88547};
 
@@ -182,5 +181,24 @@
         @endforeach
     }
     google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+<script>
+    $(function() {
+        $("#min_price").val('100');
+        $("#max_price").val('500');
+        $("#slider").slider({
+            range: true,
+            min: 0,
+            max: 1000,
+            values: [100, 500],
+            slide: function(event, ui) {
+                $("#min_price").val(ui.values[0]);
+                $("#max_price").val(ui.values[1]);
+            }
+        });
+        $('.ui-widget-header').css('background', '#00A699');
+        $('.ui-state-default, .ui-widget-content').css('background', 'white');
+        $('.ui-state-default, .ui-widget-content').css('border-color', '#00A699');
+    });
 </script>
 @endsection
